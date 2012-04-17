@@ -1,0 +1,13 @@
+
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Terminal=false
+Name=google_maps_browser_qml
+Exec=/usr/bin/single-instance /opt/google_maps_browser_qml/bin/google_maps_browser_qml
+Icon=/usr/share/icons/hicolor/80x80/apps/google_maps_browser_qml80.png
+X-Window-Icon=
+X-HildonDesk-ShowInToolbar=true
+X-Osso-Type=application/x-executable
+Name[en_US]=google_maps_browser_qml_harmattan.desktop
