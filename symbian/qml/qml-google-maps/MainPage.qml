@@ -160,6 +160,12 @@ Page {
         width: 120; height: 40
         onClicked: {
             console.log("Go clicked", lineEdit.text)
+
+            if( lineEdit.text.length == 0 ) {
+                console.log("text is empty")
+                return
+            }
+
             webView.evaluateJavaScript("window.qml.zoom=map.zoom;" +
                                        "if(map.mapTypeId == google.maps.MapTypeId.ROADMAP) window.qml.mapTypeId =\"google.maps.MapTypeId.ROADMAP\";" +
                                        "if(map.mapTypeId == google.maps.MapTypeId.SATELLITE) window.qml.mapTypeId =\"google.maps.MapTypeId.SATELLITE\";" +
