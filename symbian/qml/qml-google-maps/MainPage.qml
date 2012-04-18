@@ -3,7 +3,7 @@ import QtWebKit 1.0
 import ICS 1.0
 
 //import com.nokia.meego 1.0
-import com.nokia.symbian 1.0
+import com.nokia.symbian 1.1
 
 Page {
     //width: 360
@@ -107,36 +107,29 @@ Page {
         {
             north = windowObject.lat;
             east = windowObject.lng;
-        }
+        };
 
         //settingsManager.lat = north;
         //settingsManager.lng = east;
 
-        webView.evaluateJavaScript(
-                    "var myLatLng = new google.maps.LatLng(" + north + "," + east+ ");" +
-                    "var myOptions = {" +
-                    "center: myLatLng," +
-                    "zoom:" + settingsManager.zoom + "," +
-                    "zoomControl: false," +
-                    "mapTypeId: " + settingsManager.mapTypeId + "," +
-                    "panControl: true," +
-                    "mapTypeControl: false," +
-                    "mapTypeControlOptions: {" +
-                    "position: google.maps.ControlPosition.RIGHT_CENTER" +
-                    "}" +
-                    "};" +
-                    "var map = new google.maps.Map(document.getElementById(\"map_canvas\"), myOptions);" +
-                    "var marker = new google.maps.Marker({" +
-                    "position: myLatLng," +
-                    "map: map," +
-                    "title: \"Entered Location here\"});" +
-                    "var contentString = \"Entered Location\";" +
-                    "var infowindow = new google.maps.InfoWindow({ content: \"My location\" });" +
-                    "google.maps.event.addListener(marker, 'click', function() {" +
-                    "infowindow.open(map,marker);});"
-                    );
+        //change map type
+        var str = "map.setMapTypeId("+ settingsManager.mapTypeId + ");"
+//        console.log(str);
+        webView.evaluateJavaScript(str);
 
-
+        //adding marker
+        str =
+                "if (marker != null) marker.setMap(null);" +
+                "marker = new google.maps.Marker({" +
+                "position: map.center," +
+                "map: map," +
+                "title: \"Entered Location here\"});" +
+                "var contentString = \"Entered Location\";" +
+                "var infowindow = new google.maps.InfoWindow({ content: \"My location\" });" +
+                "google.maps.event.addListener(marker, 'click', function() {" +
+                "infowindow.open(map,marker);});"
+        //        console.log(str);
+        webView.evaluateJavaScript(str);
     }
 
     Button {
@@ -203,29 +196,27 @@ Page {
                     settingsManager.lat = north;
                     settingsManager.lng = east;
 
-                    webView.evaluateJavaScript(
-                                "var myLatLng = new google.maps.LatLng(" + north + "," + east+ ");" +
-                                "var myOptions = {" +
-                                "center: myLatLng," +
-                                "zoom:" + windowObject.zoom + "," +
-                                "zoomControl: false," +
-                                "mapTypeId: " + windowObject.mapTypeId + "," +
-                                "panControl: true," +
-                                "mapTypeControl: false," +
-                                "mapTypeControlOptions: {" +
-                                "position: google.maps.ControlPosition.RIGHT_CENTER" +
-                                "}" +
-                                "};" +
-                                "var map = new google.maps.Map(document.getElementById(\"map_canvas\"), myOptions);" +
-                                "var marker = new google.maps.Marker({" +
-                                "position: myLatLng," +
-                                "map: map," +
-                                "title: \"Entered Location here\"});" +
-                                "var contentString = \"Entered Location\";" +
-                                "var infowindow = new google.maps.InfoWindow({ content: \"My location\" });" +
-                                "google.maps.event.addListener(marker, 'click', function() {" +
-                                "infowindow.open(map,marker);});"
-                                );
+
+                    //go to new map position
+                    var str =  "var myLatLng = new google.maps.LatLng(" + north + "," + east+ ");"+
+                            "map.setCenter(myLatLng);";
+//                    console.log(str);
+                    webView.evaluateJavaScript(str);
+
+
+                    //adding marker
+                    str =
+                            "if (marker != null) marker.setMap(null);" +
+                            "marker = new google.maps.Marker({" +
+                            "position: map.center," +
+                            "map: map," +
+                            "title: \"Entered Location here\"});" +
+                            "var contentString = \"Entered Location\";" +
+                            "var infowindow = new google.maps.InfoWindow({ content: \"My location\" });" +
+                            "google.maps.event.addListener(marker, 'click', function() {" +
+                            "infowindow.open(map,marker);});"
+//                    console.log(str);
+                    webView.evaluateJavaScript(str);
 
                     busy_indicator.running = false;
                     busy_indicator.visible = false;

@@ -85,6 +85,8 @@ QVariant SettingsManager::htmlString() const
             "src=\"http://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY_HERE&sensor=false\">"
             "</script>"
             "<script type=\"text/javascript\">"
+            "var map; "
+            "var marker; "
             "function initialize() {"
             "var myOptions = {"
             "center: new google.maps.LatLng(%2, %3),"
@@ -98,7 +100,7 @@ QVariant SettingsManager::htmlString() const
             "}"
 
             "};"
-            "var map = new google.maps.Map(document.getElementById(\"map_canvas\"), myOptions);"
+            "map = new google.maps.Map(document.getElementById(\"map_canvas\"), myOptions);"
             "}"
             "</script>"
             "</head>"
