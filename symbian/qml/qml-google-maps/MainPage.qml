@@ -57,10 +57,10 @@ Page {
 
     ListModel {
         id: mapTypeModel
-        ListElement { name: "RoadMap"}
-        ListElement { name: "Satellite"}
-        ListElement { name: "Hybrid"}
-        ListElement { name: "Terrain"}
+        ListElement { modelData: "RoadMap";      type: "google.maps.MapTypeId.ROADMAP"}
+        ListElement { modelData: "Satellite";    type: "google.maps.MapTypeId.SATELLITE"}
+        ListElement { modelData: "Hybrid";       type: "google.maps.MapTypeId.HYBRID"}
+        ListElement { modelData: "Terrain";      type: "google.maps.MapTypeId.TERRAIN"}
     }
 
     SelectionDialog {
@@ -72,23 +72,8 @@ Page {
 
         onSelectedIndexChanged: {
             console.log("Selected index = ", selectedIndex);
-            if(selectedIndex != -1)
-            {
-                var type = "google.maps.MapTypeId.ROADMAP";
-                if(selectedIndex == 1)
-                {
-                    type = "google.maps.MapTypeId.SATELLITE";
-                }
-                else if(selectedIndex == 2)
-                {
-                    type = "google.maps.MapTypeId.HYBRID";
-                }
-                else if(selectedIndex == 3)
-                {
-                    type = "google.maps.MapTypeId.TERRAIN";
-                }
-                changeMapType(type);
-            }
+            if(-1 < selectedIndex && selectedIndex < model.count)
+                changeMapType(model.get(selectedIndex).type);
         }
     }
 
