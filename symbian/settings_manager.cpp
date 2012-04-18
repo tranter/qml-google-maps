@@ -14,6 +14,7 @@ SettingsManager::SettingsManager(QObject *parent) :
 
     qDebug() << "SettingsManager::SettingsManager" << m_nZoom << m_strMapTypeId;
 
+    m_strApiKey = "YOUR_API_KEY_HERE";
 }
 
 QVariant SettingsManager::zoom() const
@@ -71,6 +72,10 @@ void SettingsManager::setLng(const QVariant& lng)
 
 QVariant SettingsManager::htmlString() const
 {
+    if( m_strApiKey == "YOUR_API_KEY_HERE" ) {
+        return "<html><body><h1 style=\"text-align: center; margin-top: 40px;\">Set your API KEY in code.</h1></body></html>";
+    }
+
     QString str =
             "<!DOCTYPE html>"
             "<html>"
@@ -82,7 +87,7 @@ QVariant SettingsManager::htmlString() const
             "#map_canvas { height: 100% }"
             "</style>"
             "<script type=\"text/javascript\""
-            "src=\"http://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY_HERE&sensor=false\">"
+            "src=\"http://maps.googleapis.com/maps/api/js?key=%5&sensor=false\">"
             "</script>"
             "<script type=\"text/javascript\">"
             "var map; "
@@ -108,7 +113,7 @@ QVariant SettingsManager::htmlString() const
             "<div id=\"map_canvas\" style=\"width:100%; height:100%\"></div>"
             "</body>"
             "</html>";
-    str = str.arg(m_nZoom).arg(m_dLat).arg(m_dLng).arg(m_strMapTypeId);
+    str = str.arg(m_nZoom).arg(m_dLat).arg(m_dLng).arg(m_strMapTypeId).arg(m_strApiKey);
     return str;
 }
 

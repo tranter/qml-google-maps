@@ -238,7 +238,7 @@ Page {
 
                 }
             }
-            client.open("GET", "http://maps.google.com/maps/geo?q=" + lineEdit.text+ "&key=ABQIAAAA672lORl8GepdWKC0IpTyLBRwyA1oHr6mUau5K-dsEYfkoQ5xchQi9OlnyPRXXvt0X-CWsz8S660ZVg&output=json&oe=utf8&sensor=false");
+            client.open("GET", "http://maps.google.com/maps/geo?q=" + lineEdit.text+ "&key=" + settingsManager.getApiKey() + "&output=json&oe=utf8&sensor=false");
             busy_indicator.running = true;
             busy_indicator.visible = true;
             client.send();

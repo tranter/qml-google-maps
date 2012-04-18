@@ -30,6 +30,7 @@ public:
     QVariant lng() const;
     void setLng(const QVariant& id);
 
+    Q_INVOKABLE QString getApiKey() const { return m_strApiKey; }
 
 Q_SIGNALS:
     void zoomChanged();
@@ -43,6 +44,7 @@ private:
     int m_nZoom;
     double m_dLat;
     double m_dLng;
+    QString m_strApiKey;
 };
 
 QML_DECLARE_TYPE(SettingsManager)
